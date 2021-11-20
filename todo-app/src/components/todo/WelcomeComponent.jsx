@@ -22,10 +22,7 @@ export default class WelcomeComponent extends Component {
             </div>
 
             <div className="container">
-               <button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Call API /hello-world</button>  
-                <button onClick={this.retrieveWelcomeMessageFromBean} className="btn btn-success">Call API /hello-world-bean</button>
                 <button onClick={this.retrieveWelcomeMessageFromPath} className="btn btn-success">Call API /hello-world/path-variable/phuoc</button>
-
                 {this.state.welcomeMessage}  
              </div>
         </div>)
@@ -71,6 +68,8 @@ export default class WelcomeComponent extends Component {
     }
 
     handleErrorResponse = (error) => {
+        console.log(error.response)
+
         this.setState({
             welcomeMessage: error.message
         })
