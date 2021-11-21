@@ -39,21 +39,33 @@ class LoginComponent extends Component {
     }
 
     loginClicked() {
-        console.log(this.state);
-        if (this.state.username === 'ducphuoc88' && this.state.password === '123456') {
+        // console.log(this.state);
+        // if (this.state.username === 'ducphuoc88' && this.state.password === '123456') {
 
-            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+        //     AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+        //     this.props.history.push(`/welcome/${this.state.username}`);
+        //     // this.props.history.push("/welcome");
+        //     // console.log('Successful')
+        //     // this.setState({hasLoginFailed: false});
+        //     // this.setState({showSuccessMessage: true});
+        // } else {
+        //     console.log('Failed')
+        //     this.setState({ hasLoginFailed: true });
+        //     this.setState({ showSuccessMessage: false });
+        // }
 
-            this.props.history.push(`/welcome/${this.state.username}`);
-            // this.props.history.push("/welcome");
-            // console.log('Successful')
-            // this.setState({hasLoginFailed: false});
-            // this.setState({showSuccessMessage: true});
-        } else {
-            console.log('Failed')
-            this.setState({ hasLoginFailed: true });
-            this.setState({ showSuccessMessage: false });
-        }
+        AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+        .then(
+            () => {
+                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+                this.props.history.push(`/welcome/${this.state.username}`);  
+            }
+        ).catch(
+            () => {
+                this.setState({ hasLoginFailed: true });
+                this.setState({ showSuccessMessage: false });
+            }
+        )
     }
 
     render() {
